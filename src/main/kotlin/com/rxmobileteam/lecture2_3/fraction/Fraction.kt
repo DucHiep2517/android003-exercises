@@ -1,5 +1,7 @@
 package com.rxmobileteam.lecture2_3.fraction
 
+import kotlin.math.abs
+
 class Fraction private constructor(
     val numerator: Int,
     val denominator: Int,
@@ -75,7 +77,13 @@ class Fraction private constructor(
     override fun hashCode(): Int = TODO()
 
     // TODO: Implement equals
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true // Reference equality
+        if (other !is Fraction) return false // Check if it's not a Fraction instance
+
+        // Compare properties for equality
+        return numerator == other.numerator && denominator == other.denominator
+    }
 
     // TODO: Implement copy
     fun copy(
@@ -90,7 +98,27 @@ class Fraction private constructor(
         @JvmStatic
         fun ofDouble(decimal: Double): Fraction {
             // TODO: Returns a fraction from a decimal number
-            return Fraction(0, 0) // Change this
+            val epsilon = 1.0E-6 // A small value to compare with
+            var lowerNumerator = 0L
+            var lowerDenominator = 1L
+            var upperNumerator = 1L
+            var upperDenominator = 1L
+
+            while (true) {
+                val middleNumerator = lowerNumerator + upperNumerator
+                val middleDenominator = lowerDenominator + upperDenominator
+                val middleValue = middleNumerator.toDouble() / middleDenominator
+
+                if (abs(decimal - middleValue) < epsilon) {
+                    return Fraction(middleNumerator.toInt(), middleDenominator.toInt()) // Change this
+                } else if (decimal > middleValue) {
+                    lowerNumerator = middleNumerator
+                    lowerDenominator = middleDenominator
+                } else {
+                    upperNumerator = middleNumerator
+                    upperDenominator = middleDenominator
+                }
+            }
         }
 
         @JvmStatic
@@ -99,12 +127,22 @@ class Fraction private constructor(
             return Fraction(number, 1) // Change this
         }
 
+        private fun findGCD(a: Int, b: Int): Int {
+            return if (b == 0) a else findGCD(b, a % b)
+        }
+
         @JvmStatic
         fun of(numerator: Int, denominator: Int): Fraction {
             // TODO: Check validity of numerator and denominator
             // TODO: Simplify fraction using the greatest common divisor
             // TODO: Finally, return the fraction with the correct values
-            return Fraction(numerator, denominator) // Change this
+            if(denominator == 0)
+                throw ArithmeticException("denominator = 0 is not compatible")
+            val gcd = findGCD(numerator, denominator)
+            val simplifiedNumerator = numerator / gcd
+            val simplifiedDenominator = denominator / gcd
+
+            return Fraction(simplifiedNumerator, simplifiedDenominator) // Change this
         }
     }
 }
@@ -128,7 +166,9 @@ operator fun Fraction.get(index: Int): Int = TODO()
 
 //region to number extensions
 // TODO: round to the nearest integer
-fun Fraction.toInt(): Int = TODO()
+fun Fraction.toInt(): Int {
+    return TODO()
+}
 
 // TODO: round to the nearest long
 fun Fraction.toLong(): Long = TODO()
