@@ -18,12 +18,12 @@ class Fraction private constructor(
     //region unary operators
     // TODO: "+fraction" operator
     operator fun unaryPlus(): Fraction {
-        return of(+numerator, +denominator)
+        return of(numerator.unaryPlus(), denominator.unaryPlus())
     }
 
     // TODO: "-fraction" operator
     operator fun unaryMinus(): Fraction {
-        return of(-numerator, -denominator)
+        return of(numerator.unaryMinus(), denominator.unaryMinus())
     }
     //endregion
 
@@ -31,15 +31,16 @@ class Fraction private constructor(
     // TODO: "fraction+fraction" operator
     operator fun plus(other: Fraction): Fraction {
         // Implement addition of fractions
-        val commonDenominator = this.denominator * other.denominator
-        val newNumerator = (this.numerator * other.denominator) + (other.numerator * this.denominator)
+        val commonDenominator = this.denominator.times(other.denominator)
+        val newNumerator =
+            this.numerator.times(other.denominator).plus(other.numerator.times(this.denominator))
         return of(newNumerator, commonDenominator)
     }
 
     // TODO: "fraction+number" operator
     operator fun plus(other: Number): Fraction {
         val commonDenominator = this.denominator
-        val newNumerator = (this.numerator) + (other.toInt() * this.denominator)
+        val newNumerator = this.numerator.plus(other.toInt().times(this.denominator))
         return of(newNumerator, commonDenominator)
     }
     //endregion
@@ -47,22 +48,22 @@ class Fraction private constructor(
     //region times operators
     // TODO: "fraction*fraction" operator
     operator fun times(other: Fraction): Fraction {
-        val commonDenominator = this.denominator * other.denominator
-        val newNumerator = this.numerator * other.numerator
+        val commonDenominator = this.denominator.times(other.denominator)
+        val newNumerator = this.numerator.times(other.numerator)
         return of(newNumerator, commonDenominator)
     }
 
     // TODO: "fraction*number" operator
     operator fun times(number: Number): Fraction {
-        val newNumerator = this.numerator * number.toInt()
+        val newNumerator = this.numerator.times(number.toInt())
         return of(newNumerator, this.denominator)
     }
     //endregion
 
     // TODO: Compare two fractions
     override fun compareTo(other: Fraction): Int {
-        val thisNumerator = this.numerator * other.denominator
-        val otherNumerator = other.numerator * this.denominator
+        val thisNumerator = this.numerator.times(other.denominator)
+        val otherNumerator = other.numerator.times(this.denominator)
 
         return thisNumerator.compareTo(otherNumerator)
     }
