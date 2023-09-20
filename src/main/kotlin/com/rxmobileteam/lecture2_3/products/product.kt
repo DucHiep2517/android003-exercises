@@ -26,21 +26,12 @@ data class Order(
 
 // TODO: Return a list of Product, sorted in the ascending by price. if prices are equal, sorted by favoriteCount descending
 fun List<Product>.sortedByPriceAscendingThenByFavoriteCountDescending(): List<Product> {
-    this.sortedWith(compareBy<Product> { it.price }
+    return this.sortedWith(compareBy<Product> { it.price }
         .thenByDescending { it.favoriteCount })
-
-    return this
 }
 
 // TODO: Return a set of Products in the orders (The order doesn't matter).
 fun List<Order>.getProductsSet(): Set<Product> {
-//    var orders = mutableSetOf<Product>()
-//    for (e in this) {
-//        for(v in e.products){
-//            orders.add(v)
-//        }
-//    }
-
     return this.getProductsList().toSet()
 }
 
@@ -57,14 +48,7 @@ fun List<Order>.getProductsList(): List<Product> {
 
 // TODO: Return a list of delivered orders
 fun List<Order>.getDeliveredOrders(): List<Order> {
-    val orders = mutableListOf<Order>()
-    for (order in this) {
-        if(order.isDelivered) {
-            orders.add(order)
-        }
-    }
-
-    return orders
+    return this.filter { it.isDelivered }
 }
 
 // TODO: Return a list of products in the delivered orders
@@ -81,15 +65,7 @@ fun List<Order>.partitionDeliveredAndNotDelivered(): Pair<List<Order>, List<Orde
 // TODO: Return a map of product to count of this product in the orders
 // eg. [Product1 -> 2, Product2 -> 1, Product3 -> 3]
 fun List<Order>.countOfEachProduct(): Map<Product, Int> {
-    val productCountMap = mutableMapOf<Product, Int>()
-
-    for (order in this) {
-        for (product in order.products) {
-            val count = product.favoriteCount
-            productCountMap[product] = count
-        }
-    }
-    return productCountMap
+    return this.getProductsList().associateWith { it.favoriteCount }
 }
 
 // TODO: Return the sum of product prices in the order
@@ -203,47 +179,65 @@ val orderList = listOf(
 fun main() {
     //region sortedByPriceAscendingThenByFavoriteCountDescending
     println("sortedByPriceAscendingThenByFavoriteCountDescending")
+    println("\n================================================================================")
     println(productList.sortedByPriceAscendingThenByFavoriteCountDescending())
+    println("================================================================================ \n")
     //endregion
 
     //region getProductsSet
     println("getProductsSet")
+    println("\n================================================================================")
     println(orderList.getProductsSet())
+    println("================================================================================ \n")
     //endregion
 
     //region getProductsList
     println("getProductsList")
+    println("\n================================================================================")
     println(orderList.getProductsList())
+    println("================================================================================ \n")
     //endregion
 
     //region getDeliveredOrders
     println("getDeliveredOrders")
+    println("\n================================================================================")
     println(orderList.getDeliveredOrders())
+    println("================================================================================ \n")
     //endregion getDeliveredProductsList
 
     //region getDeliveredProductsList
     println("getDeliveredProductsList")
+    println("\n================================================================================")
     println(orderList.getDeliveredProductsList())
+    println("================================================================================ \n")
     //endregion
 
     //region partitionDeliveredAndNotDelivered
     println("partitionDeliveredAndNotDelivered")
+    println("\n================================================================================")
     println(orderList.partitionDeliveredAndNotDelivered())
+    println("================================================================================ \n")
     //endregion
 
     //region countOfEachProduct
     println("countOfEachProduct")
+    println("\n================================================================================")
     println(orderList.countOfEachProduct())
+    println("================================================================================ \n")
     //endregion
 
     //region sumProductPrice
     println("sumProductPrice")
+    println("\n================================================================================")
     println(orderList[0].sumProductPrice())
+    println("================================================================================ \n")
     //endregion
 
     //region getMaxPriceProduct, getMinPriceProduct
     println("getMaxPriceProduct, getMinPriceProduct")
+    println("\n================================================================================")
     println(orderList[0].getMaxPriceProduct())
     println(orderList[0].getMinPriceProduct())
+    println("================================================================================ \n")
     //endregion
 }

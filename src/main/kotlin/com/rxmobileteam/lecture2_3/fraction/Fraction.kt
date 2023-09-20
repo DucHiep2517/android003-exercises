@@ -18,12 +18,12 @@ class Fraction private constructor(
     //region unary operators
     // TODO: "+fraction" operator
     operator fun unaryPlus(): Fraction {
-        return +of(numerator, denominator)
+        return of(+numerator, +denominator)
     }
 
     // TODO: "-fraction" operator
     operator fun unaryMinus(): Fraction {
-        return -of(numerator, denominator)
+        return of(-numerator, -denominator)
     }
     //endregion
 
@@ -74,7 +74,11 @@ class Fraction private constructor(
     }
 
     // TODO: Implement hashCode
-    override fun hashCode(): Int = TODO()
+    override fun hashCode(): Int {
+        var result = numerator
+        result = 31 * result + denominator
+        return result
+    }
 
     // TODO: Implement equals
     override fun equals(other: Any?): Boolean {
@@ -99,26 +103,22 @@ class Fraction private constructor(
         fun ofDouble(decimal: Double): Fraction {
             // TODO: Returns a fraction from a decimal number
             val epsilon = 1.0E-6 // A small value to compare with
-            var lowerNumerator = 0L
-            var lowerDenominator = 1L
-            var upperNumerator = 1L
-            var upperDenominator = 1L
 
-            while (true) {
-                val middleNumerator = lowerNumerator + upperNumerator
-                val middleDenominator = lowerDenominator + upperDenominator
-                val middleValue = middleNumerator.toDouble() / middleDenominator
+            var numerator = decimal.toLong()
+            var denominator = 1L
+            var fractionValue = numerator.toDouble()
 
-                if (abs(decimal - middleValue) < epsilon) {
-                    return Fraction(middleNumerator.toInt(), middleDenominator.toInt()) // Change this
-                } else if (decimal > middleValue) {
-                    lowerNumerator = middleNumerator
-                    lowerDenominator = middleDenominator
-                } else {
-                    upperNumerator = middleNumerator
-                    upperDenominator = middleDenominator
-                }
+            while (abs(fractionValue - decimal) > epsilon) {
+                denominator *= 10
+                numerator = (decimal * denominator).toLong()
+                fractionValue = numerator.toDouble() / denominator.toDouble()
             }
+            return Fraction(numerator.toInt(), denominator.toInt())
+//            val gcd = findGCD(numerator.toInt(), denominator.toInt())
+//            val simplifiedNumerator = numerator / gcd
+//            val simplifiedDenominator = denominator / gcd
+//
+//            return Fraction(simplifiedNumerator.toInt(), simplifiedDenominator.toInt())
         }
 
         @JvmStatic
@@ -152,39 +152,47 @@ infix fun Int.over(denominator: Int): Fraction = Fraction.of(this, denominator)
 
 //region get extensions
 // TODO: get the numerator, eg. "val (numerator) = Fraction.of(1, 2)"
-operator fun Fraction.component1(): Int = TODO()
+operator fun Fraction.component1(): Int = numerator
 
 // TODO: get the denominator, eg. "val (_, denominator) = Fraction.of(1, 2)"
-operator fun Fraction.component2(): Int = TODO()
+operator fun Fraction.component2(): Int = denominator
 
 // TODO: get the decimal, index must be 0 or 1
 // TODO: eg. "val numerator = Fraction.of(1, 2)[0]"
 // TODO: eg. "val denominator = Fraction.of(1, 2)[1]"
 // TODO: eg. "val denominator = Fraction.of(1, 2)[2]" should throw an exception
-operator fun Fraction.get(index: Int): Int = TODO()
+operator fun Fraction.get(index: Int): Int {
+    return when (index) {
+        0 -> numerator
+        1 -> denominator
+        else -> throw IllegalArgumentException("Index must be 0 or 1")
+    }
+}
 //endregion
 
 //region to number extensions
 // TODO: round to the nearest integer
 fun Fraction.toInt(): Int {
-    return TODO()
+    return numerator / denominator
 }
 
 // TODO: round to the nearest long
-fun Fraction.toLong(): Long = TODO()
+fun Fraction.toLong(): Long = this.toInt().toLong()
 
 // TODO: return the decimal value as a float
-fun Fraction.toFloat(): Float = TODO()
+fun Fraction.toFloat(): Float {
+    return numerator.toFloat() / denominator.toFloat()
+}
 
 // TODO: return the decimal value as a double
-fun Fraction.toDouble(): Double = TODO()
+fun Fraction.toDouble(): Double = numerator.toDouble() / denominator.toDouble()
 //endregion
 
 fun main() {
     // Creation
     println("1/2: ${Fraction.of(1, 2)}")
     println("2/3: ${Fraction.of(2, 3)}")
-    println("1.6: ${Fraction.ofDouble(1.6)}")
+    println("0.7: ${Fraction.ofDouble(0.7)}")
     println("8: ${Fraction.ofInt(8)}")
     println("2/4: ${2 over 4}")
 
