@@ -2,17 +2,23 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.FragmentFirstBinding
 import com.example.myapplication.service.MyService
+import com.example.myapplication.service.NetworkStatusReceiver
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -20,6 +26,7 @@ import com.example.myapplication.service.MyService
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
+    private val networkStatusReceiver = NetworkStatusReceiver()
     private var mediaPlayer: MediaPlayer? = null
 
     // This property is only valid between onCreateView and
@@ -37,25 +44,20 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val  intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        view.context.registerReceiver(networkStatusReceiver,intentFilter)
         binding.buttonPlay.setOnClickListener {
-            ContextCompat.startForegroundService(
-                view.context,
-                Intent(view.context, MyService::class.java)
-            )
             mediaPlayer?.start()
                 ?: run { startAudio(view.context) }
         }
 
         binding.buttonPause.setOnClickListener {
-            Log.d("TAG", "Pausee")
             mediaPlayer?.let {
                 if(it.isPlaying) it.pause()
             }
         }
 
         binding.buttonStop.setOnClickListener {
-            Log.d("TAG", "Stoppp")
-
             mediaPlayer?.let {
                 requireActivity().stopService(Intent(view.context, MyService::class.java))
                 it.stop()
