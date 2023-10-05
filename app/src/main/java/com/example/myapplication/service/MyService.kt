@@ -23,12 +23,9 @@ class MyService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(CHANNEL_ID,"======> $intent")
-
         val notification = createNotification()
 
         startForeground(FOREGROUND_SERVICE_ID, notification)
-        Log.d(CHANNEL_ID,"======> complete")
         return START_STICKY
     }
 
