@@ -2,6 +2,7 @@ package com.example.note.viewFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,6 @@ class Home: BaseFragment() {
     }
 
     private fun onClickItem(note: Note) {
-        Toast.makeText(context, "Clicked $note", Toast.LENGTH_SHORT).show()
         parentFragmentManager.commit {
             replace<HomeDetail>(
                 containerViewId = R.id.fragment_container,
@@ -70,7 +70,7 @@ class Home: BaseFragment() {
             )
             setReorderingAllowed(true)
 
-            addToBackStack("FirstFragment_to_SecondFragment")
+            addToBackStack("abcccc")
         }
 
 //        notes = notes.map { item ->
@@ -88,19 +88,37 @@ class Home: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.recyclerview.setOnClickListener{
+            Log.d("TAGG", "asdafasf")
+        }
+
         binding.floatingActionButton.setOnClickListener {
-            val id = UUID.randomUUID().toString()
+//            val id = UUID.randomUUID().toString()
+//
+//            notes = listOf(
+//                Note(
+//                    id = id,
+//                    name = "Note #${notes.size + 1}",
+//                    email = "despitepsion ${notes.size + 1}@"
+//                )
+//            ) + notes
+//
+//            noteAdapter.submitList(notes) {
+//                binding.recyclerview.scrollToPosition(0)
+//            }
 
-            notes = listOf(
-                Note(
-                    id = id,
-                    name = "Note #${notes.size + 1}",
-                    email = "despitepsion ${notes.size + 1}@"
+            parentFragmentManager.commit {
+                replace<Create>(
+                    containerViewId = R.id.fragment_container,
+                    tag = "SixFragment",
+                    args = bundleOf(
+                        "count" to 0,
+                        "name" to "hoc"
+                    )
                 )
-            ) + notes
+                setReorderingAllowed(true)
 
-            noteAdapter.submitList(notes) {
-                binding.recyclerview.scrollToPosition(0)
+                addToBackStack("toABCCCCC")
             }
         }
     }

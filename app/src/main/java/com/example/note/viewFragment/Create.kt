@@ -4,15 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.note.databinding.FragmentFiveBinding
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.note.R
+import com.example.note.adapter.Note
+import com.example.note.adapter.NoteAdapter
+import com.example.note.databinding.FragmentSixBinding
+import java.util.*
 
-class HomeDetail: BaseFragment() {
-    private var _binding: FragmentFiveBinding? = null
+class Create : BaseFragment() {
+    private var _binding: FragmentSixBinding? = null
 
     private val binding get() = _binding!!
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentFiveBinding.inflate(
+        _binding = FragmentSixBinding.inflate(
             inflater,
             container,
             false
@@ -20,14 +31,15 @@ class HomeDetail: BaseFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backButton.setOnClickListener{
+        binding.imageButton.setOnClickListener{
             parentFragmentManager.popBackStack()
         }
 
-        binding.removeButton.setOnClickListener{
+        binding.floatingActionButton.setOnClickListener{
             parentFragmentManager.popBackStack()
         }
     }

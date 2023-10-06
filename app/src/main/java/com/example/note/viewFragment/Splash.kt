@@ -41,8 +41,6 @@ class Splash : BaseFragment() {
                     )
                 )
                 setReorderingAllowed(false)
-
-                addToBackStack("FirstFragment_to_SecondFragment")
             }
         }
         super.onViewCreated(view, savedInstanceState)

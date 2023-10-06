@@ -44,7 +44,6 @@ class Login : BaseFragment() {
                 )
                 setReorderingAllowed(true)
 
-                addToBackStack("FirstFragment_to_SecondFragment")
             }
         }
 
