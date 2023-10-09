@@ -12,9 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.myapplication.databinding.FragmentFirstBinding
 import com.example.myapplication.service.MyService
 import com.example.myapplication.service.NetworkStatusReceiver
+import com.example.note.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
