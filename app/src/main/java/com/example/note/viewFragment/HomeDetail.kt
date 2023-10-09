@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.note.adapter.Note
 import com.example.note.databinding.FragmentNoteDetailBinding
 
 class HomeDetail: BaseFragment() {
     private var _binding: FragmentNoteDetailBinding? = null
 
     private val binding get() = _binding!!
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        nema = requireArguments().getString("description")
+//        val description = requireArguments().getString("description")
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentNoteDetailBinding.inflate(
@@ -22,6 +29,9 @@ class HomeDetail: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.textName.text = requireArguments().getString("name")
+        binding.textEmail.text = requireArguments().getString("description")
+
 
         binding.backButton.setOnClickListener{
             parentFragmentManager.popBackStack()

@@ -47,7 +47,7 @@ class NoteAdapter(
         fun bind(note: Note) {
             binding.run {
                 textName.text = note.name
-                textEmail.text = note.email
+                textEmail.text = note.description
             }
         }
     }
