@@ -12,16 +12,16 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.note.R
-import com.example.note.databinding.FragmentSecondBinding
+import com.example.note.databinding.FragmentLoginBinding
 
 
 class Login : BaseFragment() {
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSecondBinding.inflate(
+        _binding = FragmentLoginBinding.inflate(
             inflater,
             container,
             false

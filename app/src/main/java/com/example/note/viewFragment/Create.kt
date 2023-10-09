@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.note.R
 import com.example.note.adapter.Note
 import com.example.note.adapter.NoteAdapter
-import com.example.note.databinding.FragmentSixBinding
+import com.example.note.databinding.FragmentNoteCreateBinding
 import java.util.*
 
 class Create : BaseFragment() {
-    private var _binding: FragmentSixBinding? = null
+    private var _binding: FragmentNoteCreateBinding? = null
 
     private val binding get() = _binding!!
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSixBinding.inflate(
+        _binding = FragmentNoteCreateBinding.inflate(
             inflater,
             container,
             false

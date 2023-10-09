@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.note.databinding.FragmentThirdBinding
+import com.example.note.databinding.FragmentRegisterBinding
 
 class Register: BaseFragment() {
-    private var _binding: FragmentThirdBinding? = null
+    private var _binding: FragmentRegisterBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentThirdBinding.inflate(
+        _binding = FragmentRegisterBinding.inflate(
             inflater,
             container,
             false

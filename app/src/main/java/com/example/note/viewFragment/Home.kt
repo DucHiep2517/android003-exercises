@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.note.R
 import com.example.note.adapter.Note
 import com.example.note.adapter.NoteAdapter
-import com.example.note.databinding.FragmentFourBinding
+import com.example.note.databinding.FragmentHomeBinding
 import java.util.*
 
 class Home: BaseFragment() {
-    private var _binding: FragmentFourBinding? = null
+    private var _binding: FragmentHomeBinding? = null
 
     private val binding get() = _binding!!
 
@@ -31,7 +31,7 @@ class Home: BaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentFourBinding.inflate(
+        _binding = FragmentHomeBinding.inflate(
             inflater,
             container,
             false

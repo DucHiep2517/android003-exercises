@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.note.databinding.UserItemLayoutBinding
+import com.example.note.databinding.NoteItemLayoutBinding
 
 object UserDiffUtilItemCallback : DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
@@ -23,7 +23,7 @@ class NoteAdapter(
     private val onClickItem: (Note) -> Unit,
 ) : androidx.recyclerview.widget.ListAdapter<Note, NoteAdapter.VH>(UserDiffUtilItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = UserItemLayoutBinding.inflate(
+        val binding = NoteItemLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -33,7 +33,7 @@ class NoteAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(getItem(position))
 
-    inner class VH(private val binding: UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(private val binding: NoteItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
 
             itemView.setOnClickListener {

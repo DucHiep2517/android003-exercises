@@ -13,8 +13,7 @@ fun buildOkHttpClient(): OkHttpClient {
         .connectTimeout(20, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
-        .addInterceptor(CustomHeaderInterceptor())
-        .addInterceptor(AuthInterceptor(JwtTokenManager()))
+        .addInterceptor(AuthInterceptor())
         .addNetworkInterceptor(
             HttpLoggingInterceptor().apply {
                 level = if (BuildConfig.DEBUG) {

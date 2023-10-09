@@ -8,17 +8,17 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.note.R
-import com.example.note.databinding.FragmentFirstBinding
+import com.example.note.databinding.FragmentSplashBinding
 import kotlinx.coroutines.*
 
 class Splash : BaseFragment() {
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentSplashBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         log("onCreateView")
-        _binding = FragmentFirstBinding.inflate(
+        _binding = FragmentSplashBinding.inflate(
             inflater,
             container,
             false
