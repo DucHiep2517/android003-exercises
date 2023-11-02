@@ -15,6 +15,8 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains:annotations:24.0.1")
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava3/rxjava
+    implementation("io.reactivex.rxjava3:rxjava:3.1.8")
 }
 
 tasks.test {
